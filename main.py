@@ -32,3 +32,6 @@ def main():
     while True:
         check_new_tweets()
         time.sleep(60)
+
+if __name__ == '__main__':
+    main()
