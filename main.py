@@ -30,7 +30,11 @@ def check_new_tweets():
 
 def main():
     while True:
-        check_new_tweets()
+        try:
+            check_new_tweets()
+        except: # Ugly, but we do not want to fail if temporary service outtage
+            pass
+
         time.sleep(60)
 
 if __name__ == '__main__':
