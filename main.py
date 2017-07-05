@@ -6,18 +6,22 @@ from lastid import LastId
 import settings
 
 
-def check_new_tweets():
-    twitter = TwitterBuilder.build()
-    mastodon = MastodonBuilder.build()
+config = settings.FileConfiguration('config.yaml')
 
-    last_id = LastId.read()
+
+def check_new_tweets():
+    twitter = TwitterBuilder(config).build()
+    mastodon = MastodonBuilder(config).build()
+
+    last_id_handler = LastId(config)
+    last_id = last_id_handler.read()
 
     if last_id is not None:
         tweets = twitter.statuses.user_timeline(
-            screen_name=settings.TWITTER_ACCOUNT, since_id=last_id)
+            screen_name=config.TWITTER_ACCOUNT, since_id=last_id)
     else:
         tweets = twitter.statuses.user_timeline(
-            screen_name=settings.TWITTER_ACCOUNT)
+            screen_name=config.TWITTER_ACCOUNT)
 
     previous_last_id = last_id
     for tweet in reversed(tweets):
@@ -27,7 +31,7 @@ def check_new_tweets():
 
     if previous_last_id != last_id:
         print('New last Twitter status id is {}'.format(last_id))
-        LastId.write(last_id)
+        last_id_handler.write(last_id)
 
 def main():
     while True:
@@ -39,6 +43,4 @@ def main():
         time.sleep(60)
 
 if __name__ == '__main__':
-    #main()
-    test = settings.FileConfiguration('config.yaml')
-    print(test.MASTODON_APP_NAME)
+    main()

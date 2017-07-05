@@ -1,7 +1,8 @@
 from builders import MastodonBuilder
+from settings import FileConfiguration
 
-
-mastodon = MastodonBuilder.build()
+config = FileConfiguration('config.yaml')
+mastodon = MastodonBuilder(config).build()
 myid = mastodon.account_verify_credentials()['id']
 
 for toot in mastodon.account_statuses(myid):

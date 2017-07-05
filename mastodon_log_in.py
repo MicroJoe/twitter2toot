@@ -1,16 +1,18 @@
 from mastodon import Mastodon
-import settings
+from settings import FileConfiguration
 
+
+config = FileConfiguration('config.yaml')
 
 mastodon = Mastodon(
-    client_id=settings.MASTODON_CLIENTCRED_FILE,
+    client_id=config.MASTODON_CLIENTCRED_FILE,
     api_base_url='https://social.svallee.fr'
 )
 
-user = settings.MASTODON_USER_EMAIL
+user = config.MASTODON_USER_EMAIL
 password = input("Password for user {}: ".format(user))
 
 mastodon.log_in(
     user, password,
-    to_file=settings.MASTODON_USERCRED_FILE
+    to_file=config.MASTODON_USERCRED_FILE
 )

@@ -1,9 +1,11 @@
 from mastodon import Mastodon
-import settings
+from settings import FileConfiguration
 
+
+config = FileConfiguration('config.yaml')
 
 Mastodon.create_app(
-    settings.MASTODON_APP_NAME,
-    api_base_url=settings.MASTODON_BASE_URL,
-    to_file=settings.MASTODON_CLIENTCRED_FILE
+    config.MASTODON_APP_NAME,
+    api_base_url=config.MASTODON_BASE_URL,
+    to_file=config.MASTODON_CLIENTCRED_FILE
 )
