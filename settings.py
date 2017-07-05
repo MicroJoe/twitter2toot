@@ -1,23 +1,37 @@
-MASTODON_APP_NAME = 'twitter2toot'
+import yaml
 
-MASTODON_BASE_URL = 'https://mastodon.social'
-MASTODON_USER_EMAIL = 'example@example.com'
 
-MASTODON_CLIENTCRED_FILE = 'pytooter_clientcred.secret'
-MASTODON_USERCRED_FILE = 'pytooter_usercred.secret'
+class DefaultConfiguration:
+    # Mastodon
 
-# Twitter
+    MASTODON_APP_NAME = 'twitter2toot'
 
-TWITTER_ACCOUNT = 'twitter'
-TWITTER_LASTID_FILE = 'twitter_last_id.txt'
+    MASTODON_BASE_URL = 'https://mastodon.social'
+    MASTODON_USER_EMAIL = 'example@example.com'
 
-TWITTER_API_KEY = 'not_a_chance'
-TWITTER_API_SECRET = 'not_a_chance'
+    MASTODON_CLIENTCRED_FILE = 'pytooter_clientcred.secret'
+    MASTODON_USERCRED_FILE = 'pytooter_usercred.secret'
 
-TWITTER_TOKEN = 'not_a_chance'
-TWITTER_TOKEN_SECRET = 'not_a_chance'
+    # Twitter
 
-try:
-    from settings_prod import *
-except ImportError:
-    pass
+    TWITTER_ACCOUNT = 'twitter'
+    TWITTER_LASTID_FILE = 'twitter_last_id.txt'
+
+    TWITTER_API_KEY = 'not_a_chance'
+    TWITTER_API_SECRET = 'not_a_chance'
+
+    TWITTER_TOKEN = 'not_a_chance'
+    TWITTER_TOKEN_SECRET = 'not_a_chance'
+
+
+class FileConfiguration:
+    def __init__(self, yaml_file):
+        self.default = DefaultConfiguration()
+        with open(yaml_file) as f:
+            self.custom = yaml.load(f)
+
+    def __getattr__(self, attr):
+        try:
+            return self.custom[attr]
+        except KeyError:
+            return getattr(self.default, attr)

@@ -1,4 +1,5 @@
 import time
+import yaml
 
 from builders import MastodonBuilder, TwitterBuilder
 from lastid import LastId
@@ -38,4 +39,6 @@ def main():
         time.sleep(60)
 
 if __name__ == '__main__':
-    main()
+    #main()
+    test = settings.FileConfiguration('config.yaml')
+    print(test.MASTODON_APP_NAME)

@@ -1,0 +1,24 @@
+# twitter2toot example configuration file, copy this to config.yaml and adapt
+# to your needs.
+
+# Mandatory Mastodon settings
+MASTODON_BASE_URL: https://mastodon.social
+MASTODON_USER_EMAIL: example@example.com
+
+# Mandatory Twitter settings
+TWITTER_ACCOUNT: twitter
+
+TWITTER_API_KEY: not_a_chance
+TWITTER_API_SECRET: not_a_chance
+
+TWITTER_TOKEN: not_a_chance
+TWITTER_TOKEN_SECRET: not_a_chance
+
+# Optional Mastodon settings
+#MASTODON_APP_NAME: twitter2toot
+
+#MASTODON_CLIENTCRED_FILE: pytooter_clientcred.secret
+#MASTODON_USERCRED_FILE: pytooter_usercred.secret
+
+# Optional Twitter settings
+#TWITTER_LASTID_FILE: twitter_last_id.txt
