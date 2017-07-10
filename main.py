@@ -1,4 +1,6 @@
 import time
+import traceback
+
 import yaml
 
 from builders import MastodonBuilder, TwitterBuilder
@@ -37,8 +39,8 @@ def main():
     while True:
         try:
             check_new_tweets()
-        except: # Ugly, but we do not want to fail if temporary service outtage
-            pass
+        except:
+            print(traceback.format_exc())
 
         time.sleep(60)
 
