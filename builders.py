@@ -8,7 +8,7 @@ class ConfigBasedBuilder:
 
 
 class MastodonBuilder(ConfigBasedBuilder):
-    def build():
+    def build(self):
         return Mastodon(
             client_id=self.config.MASTODON_CLIENTCRED_FILE,
             access_token=self.config.MASTODON_USERCRED_FILE,
@@ -16,7 +16,7 @@ class MastodonBuilder(ConfigBasedBuilder):
 
 
 class TwitterBuilder(ConfigBasedBuilder):
-    def build():
+    def build(self):
         auth = OAuth(
             self.config.TWITTER_TOKEN,
             self.config.TWITTER_TOKEN_SECRET,
