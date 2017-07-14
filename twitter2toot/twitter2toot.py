@@ -1,17 +1,14 @@
+import sys
 import time
 import traceback
 
-import yaml
+from twitter2toot.builders import MastodonBuilder, TwitterBuilder
+from twitter2toot.lastid import LastId
 
-from builders import MastodonBuilder, TwitterBuilder
-from lastid import LastId
-import settings
-
-
-config = settings.FileConfiguration('config.yaml')
+from twitter2toot import settings
 
 
-def check_new_tweets():
+def check_new_tweets(config):
     twitter = TwitterBuilder(config).build()
     mastodon = MastodonBuilder(config).build()
 
@@ -35,14 +32,26 @@ def check_new_tweets():
         print('New last Twitter status id is {}'.format(last_id))
         last_id_handler.write(last_id)
 
-def main():
+
+def main(config_file):
+    config = settings.FileConfiguration(config_file)
+
     while True:
         try:
-            check_new_tweets()
+            check_new_tweets(config)
         except:
             print(traceback.format_exc())
 
         time.sleep(60)
 
+
+def usage():
+    print("usage: twitter2toot <config.yaml>")
+
+
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) != 2:
+        usage()
+        sys.exit(1)
+
+    main(sys.argv[1])

@@ -1,6 +1,6 @@
 from mastodon import Mastodon
-from settings import FileConfiguration
 
+from twitter2toot.settings import FileConfiguration
 
 config = FileConfiguration('config.yaml')
 

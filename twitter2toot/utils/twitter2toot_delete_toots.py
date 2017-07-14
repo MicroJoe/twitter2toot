@@ -1,5 +1,6 @@
-from builders import MastodonBuilder
-from settings import FileConfiguration
+from twitter2toot.builders import MastodonBuilder
+
+from twitter2toot.settings import FileConfiguration
 
 config = FileConfiguration('config.yaml')
 mastodon = MastodonBuilder(config).build()

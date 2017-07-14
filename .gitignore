@@ -2,3 +2,4 @@
 settings_prod.py
 twitter_last_id.txt
 .idea
+config.yaml
